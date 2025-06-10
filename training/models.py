@@ -7,3 +7,12 @@ class WorkoutTemplate(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Exercise(models.Model):
+    workout_template = models.ForeignKey(WorkoutTemplate, related_name='exercises', on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    sets = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return self.name
