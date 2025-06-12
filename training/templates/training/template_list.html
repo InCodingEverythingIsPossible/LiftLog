@@ -63,11 +63,11 @@
             <button onclick="closeCreateTemplateModal()" class="close-button">×</button>
             <h2>Create New Template</h2>
             <input type="text" id="new-template-name" placeholder="Template Name" style="width: 100%; margin-bottom: 1rem;" />
-            <textarea id="new-template-description" placeholder="Description" style="width: 100%; height: 100px;"></textarea>
+            <textarea id="new-template-description" placeholder="Description" style="width: 100%; height: 50px; resize: vertical;"></textarea>
+            <div id="selected-exercises" style="margin-top: 1rem; font-size: 0.9rem;"></div>
             <button onclick="openExercisePicker()" class="start-button" style="background-color:#2196f3; margin-top:1rem;">
                 + Add Exercises
             </button>
-            <div id="selected-exercises" style="margin-top: 1rem; font-size: 0.9rem;"></div>
             <button class="start-button" onclick="createTemplate()">Save</button>
         </div>
     </div>

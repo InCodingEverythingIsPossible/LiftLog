@@ -14,7 +14,6 @@ function openExercisePicker() {
         select.appendChild(opt);
     });
 
-    selectedExerciseIds = [];
     document.getElementById("exercise-picker").style.display = "flex";
 }
 
@@ -38,6 +37,7 @@ function renderExerciseList() {
 }
 
 
+
 function toggleExercise(id) {
     const idx = selectedExerciseIds.indexOf(id);
     if (idx > -1) {
@@ -54,25 +54,114 @@ function closeExercisePicker() {
 }
 
 function confirmExerciseSelection() {
-    // Log selected IDs
-    console.log("Selected exercise IDs:", selectedExerciseIds);
+    const selectedDiv = document.getElementById("selected-exercises");
 
-    // Find selected exercises using their IDs
-    const selectedExercises = allExercises.filter(ex => selectedExerciseIds.includes(ex.id));
+    const existingIds = new Set();
+    document.querySelectorAll("#selected-exercises .exercise-item").forEach(div => {
+        existingIds.add(parseInt(div.dataset.exerciseId));
+    });
 
-    // Format and insert selected exercises into #selected-exercises div in create-template-modal
-    const displayList = selectedExercises.map(ex => `
-        <div class="exercise-item">
-            <strong>${ex.name}</strong>
-            <small>${ex.primary_muscle}</small>
-        </div>
-    `).join('');
+    const newIds = selectedExerciseIds.filter(id => !existingIds.has(id));
 
-    document.getElementById("selected-exercises").innerHTML = displayList;
+    newIds.forEach((id) => {
+        const exercise = allExercises.find(e => e.id === id);
+        const wrapper = document.createElement("div");
+        wrapper.className = "exercise-item";
+        wrapper.dataset.exerciseId = id;
 
-    // Optionally: store selectedExercises globally or as hidden input for saving later
-    window.selectedExercisesData = selectedExercises;
+        const title = document.createElement("strong");
+        title.textContent = exercise.name;
 
-    // Close the picker modal
+        const setsContainer = document.createElement("div");
+        setsContainer.className = "sets-container";
+
+        // Initialize with 1 set
+        let setCount = 1;
+        const firstSet = createSetInput(setCount++);
+        setsContainer.appendChild(firstSet);
+
+        // Add "Add Set" button
+        const addSetBtn = document.createElement("button");
+        addSetBtn.textContent = "+ Add Set";
+        addSetBtn.type = "button";
+        addSetBtn.style.marginTop = "0.5rem";
+        addSetBtn.onclick = () => {
+            const newSet = createSetInput(setCount++);
+            setsContainer.appendChild(newSet);
+        };
+
+        wrapper.appendChild(title);
+        wrapper.appendChild(setsContainer);
+        wrapper.appendChild(addSetBtn);
+
+        selectedDiv.appendChild(wrapper);
+    });
+
     closeExercisePicker();
+}
+
+// Helper to create one set input
+function createSetInput(setNumber = 1, previousValue = "") {
+    const wrapper = document.createElement("div");
+    wrapper.className = "set-row";
+    wrapper.style.marginBottom = "0.5rem";
+
+    // --- Top line with set number, previous info, kg and reps inputs ---
+    const topLine = document.createElement("div");
+    topLine.style.display = "flex";
+    topLine.style.alignItems = "center";
+    topLine.style.gap = "0.5rem";
+
+    // Set number label
+    const setLabel = document.createElement("span");
+    setLabel.textContent = `Set ${setNumber}:`;
+    setLabel.style.width = "60px";
+
+    // Previous set info
+    const prev = document.createElement("span");
+    prev.textContent = previousValue || "Previous: —";
+    prev.style.fontSize = "0.85rem";
+    prev.style.color = "#777";
+    prev.style.width = "120px";
+
+    // kg input
+    const kgInput = document.createElement("input");
+    kgInput.type = "number";
+    kgInput.placeholder = "kg";
+    kgInput.min = 0;
+    kgInput.style.width = "60px";
+
+    // reps input
+    const repsInput = document.createElement("input");
+    repsInput.type = "number";
+    repsInput.placeholder = "reps";
+    repsInput.min = 0;
+    repsInput.style.width = "60px";
+
+    topLine.appendChild(setLabel);
+    topLine.appendChild(prev);
+    topLine.appendChild(kgInput);
+    topLine.appendChild(repsInput);
+
+    // --- Bottom line with rest timer input ---
+    const timerLine = document.createElement("div");
+    timerLine.style.textAlign = "center";
+    timerLine.style.marginTop = "0.3rem";
+
+    // Rest timer input (format mm:ss)
+    const restInput = document.createElement("input");
+    restInput.type = "text";  // Text type to allow mm:ss format
+    restInput.placeholder = "Rest (mm:ss)";
+    restInput.value = "02:00";  // Default value
+    restInput.style.width = "70px";
+    restInput.style.fontSize = "0.9rem";
+    restInput.style.textAlign = "center";
+
+    timerLine.appendChild(restInput);
+
+    // Append top and bottom lines to wrapper
+    wrapper.appendChild(topLine);
+    wrapper.appendChild(timerLine);
+
+    return wrapper;
 }
