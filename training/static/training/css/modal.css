@@ -19,6 +19,8 @@
     width: 90%;
     max-width: 500px;
     position: relative;
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
 .close-button {
@@ -57,6 +59,16 @@
 .exercise-item small {
     color: #666;
     font-size: 0.85rem;
+}
+
+/* Modal exercise set */
+.set-row input {
+    padding: 0.3rem;
+    font-size: 0.9rem;
+}
+
+.set-row span {
+    font-size: 0.9rem;
 }
 
 /* Modal exercise picker */
