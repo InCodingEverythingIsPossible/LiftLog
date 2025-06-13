@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>Workout Started - {{ template.name }}</title>
+    <link rel="stylesheet" href="{% static 'training/css/base.css' %}">
+</head>
+<body>
+    <h1>Workout Started</h1>
+    <h2>{{ template.name }}</h2>
+    <p>{{ template.description }}</p>
+
+    <h3>Exercises:</h3>
+    <ul>
+        {% for ex in template.exercises.all %}
+            <li>{{ ex.sets }} x {{ ex.name }} ({{ ex.primary_muscle }})</li>
+        {% empty %}
+            <li>No exercises defined.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'workout_template_list' %}">Back to Templates</a>
+</body>
+</html>

@@ -6,6 +6,8 @@ function toggleSection(sectionId) {
 }
 
 function openModal(id) {
+    window.currentTemplateId = id;
+
     const data = templatesData.find(t => t.id === id);
     if (!data) return;
 
@@ -28,6 +30,11 @@ function closeModal() {
 }
 
 function startWorkout() {
-    alert("Workout started!");
     closeModal();
+    const templateId = window.currentTemplateId;
+    if (!templateId) {
+        alert("No workout selected!");
+        return;
+    }
+    window.location.href = `/start/${templateId}/`;
 }

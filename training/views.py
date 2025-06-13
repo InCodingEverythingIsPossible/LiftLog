@@ -1,9 +1,8 @@
 import json
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import WorkoutTemplate, Exercise
 
 
@@ -91,5 +90,5 @@ def create_template_api(request):
 
 
 def start_workout(request, template_id):
-    # Later add the logic for creating a training session
-    return HttpResponse(f"Workout started {template_id}")
+    template = get_object_or_404(WorkoutTemplate, id=template_id)
+    return render(request, 'training/start_workout.html', {'template': template})
