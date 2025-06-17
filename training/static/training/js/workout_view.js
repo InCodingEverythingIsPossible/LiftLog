@@ -14,12 +14,17 @@ function openModal(id) {
     document.getElementById("modal-title").innerText = data.name;
     document.getElementById("modal-description").innerText = data.description || "No description.";
 
-    const exercisesHTML = data.exercises?.map(ex =>
-        `<div class="exercise-item">
-            <strong>${ex.sets} x ${ex.name}</strong><br>
-            <small>${ex.primary_muscle || 'No muscle specified'}</small>
-        </div>`
-    ).join('') || "<p>No exercises defined.</p>";
+    const exercisesHTML = data.exercises?.map(ex => {
+        const setsDetails = ex.sets.map(set =>
+            `${set.kg}kg x ${set.reps} reps (rest: ${set.rest_timer || set.rest})`
+        ).join(", ");
+
+        return `<div class="exercise-item">
+            <strong>${ex.name}</strong><br>
+            <small>${ex.primary_muscle || 'No muscle specified'}</small><br>
+            <small>Sets: ${setsDetails}</small>
+        </div>`;
+    }).join('') || "<p>No exercises defined.</p>";
 
     document.getElementById("modal-exercises").innerHTML = exercisesHTML;
     document.getElementById("template-modal").style.display = "flex";
