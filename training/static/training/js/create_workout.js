@@ -9,42 +9,58 @@ function closeCreateTemplateModal() {
 }
 
 function createTemplate() {
-    const name = document.getElementById("new-template-name").value.trim();
-    const description = document.getElementById("new-template-description").value.trim();
+    const name = document.getElementById("new-template-name").value;
+    const description = document.getElementById("new-template-description").value;
 
-    if (!name) {
-        alert("Please enter a template name.");
-        return;
-    }
+    const exercises = [];
+    document.querySelectorAll("#selected-exercises .exercise-item").forEach(editor => {
+        const exerciseId = parseInt(editor.dataset.exerciseId);
+        const sets = [];
+
+        editor.querySelectorAll(".set-row").forEach(row => {
+            const inputs = row.querySelectorAll("input");
+            const kg = parseFloat(inputs[0].value) || 0;
+            const reps = parseInt(inputs[1].value) || 0;
+            const rest = inputs[2].value || "00:00";  // mm:ss
+
+            sets.push({ kg, reps, rest });
+        });
+
+        exercises.push({ exerciseId: exerciseId, sets });
+    });
+
+    const payload = {
+        name,
+        description,
+        exercises,
+    };
+
+    const csrftoken = getCookie('csrftoken');
 
     fetch("/api/create_template/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "X-CSRFToken": getCookie('csrftoken'),  // make sure to include CSRF token
+            "X-CSRFToken": csrftoken,
         },
-        body: JSON.stringify({ name, description, exercise_ids: selectedExerciseIds }),
+        body: JSON.stringify(payload),
     })
-    .then(response => response.json())
+    .then(res => res.json())
     .then(data => {
+        console.log("Response from API:", data);
         if(data.success) {
-            // Close modal
-            closeCreateTemplateModal();
-
-            // Optionally reset input fields
-            document.getElementById("new-template-name").value = "";
-            document.getElementById("new-template-description").value = "";
-            selectedExerciseIds = [];
-
-            // Update the templates list on the page
-            addNewTemplateToDOM(data.template);
-
+            alert("Template created!");
+            location.reload();
         } else {
             alert("Error: " + (data.error || "Unknown error"));
         }
     })
-    .catch(err => alert("Request failed: " + err));
+    .catch(err => {
+        console.error("Fetch error:", err);
+        alert("Request failed.");
+    });
 }
+
 
 // Helper to add a new template card dynamically
 function addNewTemplateToDOM(template) {
@@ -73,7 +89,7 @@ function addNewTemplateToDOM(template) {
     }
 }
 
-// Helper function to get CSRF cookie (you may already have this)
+// Generic cookie getter (Django-recommended)
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== "") {
