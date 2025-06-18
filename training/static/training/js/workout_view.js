@@ -15,15 +15,16 @@ function openModal(id) {
     document.getElementById("modal-description").innerText = data.description || "No description.";
 
     const exercisesHTML = data.exercises?.map(ex => {
-        const setsDetails = ex.sets.map(set =>
-            `${set.kg}kg x ${set.reps} reps (rest: ${set.rest_timer || set.rest})`
-        ).join(", ");
+        const seriesCount = ex.sets.length;
+        const exerciseName = ex.name;
+        const muscle = ex.primary_muscle || 'No muscle specified';
 
-        return `<div class="exercise-item">
-            <strong>${ex.name}</strong><br>
-            <small>${ex.primary_muscle || 'No muscle specified'}</small><br>
-            <small>Sets: ${setsDetails}</small>
-        </div>`;
+        return `
+            <div class="exercise-item" style="margin-bottom: 1rem;">
+                <strong>${seriesCount} x ${exerciseName}</strong><br>
+                <small>${muscle}</small>
+            </div>
+        `;
     }).join('') || "<p>No exercises defined.</p>";
 
     document.getElementById("modal-exercises").innerHTML = exercisesHTML;

@@ -4,21 +4,54 @@
 <head>
     <title>Workout Started - {{ template.name }}</title>
     <link rel="stylesheet" href="{% static 'training/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'training/css/start_workout.css' %}">
 </head>
 <body>
     <h1>Workout Started</h1>
     <h2>{{ template.name }}</h2>
     <p>{{ template.description }}</p>
 
-    <h3>Exercises:</h3>
-    <ul>
-        {% for ex in template.exercises.all %}
-            <li>{{ ex.sets }} x {{ ex.name }} ({{ ex.primary_muscle }})</li>
-        {% empty %}
-            <li>No exercises defined.</li>
-        {% endfor %}
-    </ul>
+    {% for te in template.template_exercises.all %}
+        <div class="exercise-card">
+            <div class="exercise-name">{{ te.exercise.name }}</div>
+            <div class="muscle-group">{{ te.exercise.primary_muscle }}</div>
 
-    <a href="{% url 'workout_template_list' %}">Back to Templates</a>
+            {% for set in te.sets.all %}
+                <div class="set-card">
+                    <div class="set-header">
+                        <div class="set-number">{{ forloop.counter }}</div>
+                        <div class="set-labels">
+                            <div>Previous: -</div>
+                        </div>
+                        <div class="set-check">
+                            <input type="checkbox"
+                                   id="check-{{ te.id }}-{{ forloop.counter }}"
+                                   class="set-done-toggle"
+                                   data-timer-id="timer-{{ te.id }}-{{ forloop.counter }}">
+                            <label for="check-{{ te.id }}-{{ forloop.counter }}">✓</label>
+                        </div>
+                    </div>
+
+                    <div class="set-inputs">
+                        <input class="input-kg" type="number" value="{{ set.kg }}" placeholder="kg">
+                        <input class="input-reps" type="number" value="{{ set.reps }}" placeholder="reps">
+                    </div>
+                    <div class="rest-timer" id="timer-{{ te.id }}-{{ forloop.counter }}" data-initial-time="{{ set.rest_timer }}">
+                        Rest: {{ set.rest_timer }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+    <div style="text-align: center; margin-top: 2rem;">
+        <button id="finish-workout-btn" class="start-button">Finish</button>
+    </div>
+
+
+    <a href="{% url 'workout_template_list' %}">← Back to Templates</a>
+
+    <script src="{% static 'training/js/start_workout.js' %}"></script>
+
 </body>
 </html>
