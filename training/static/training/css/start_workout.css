@@ -1,0 +1,139 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 2rem;
+    background-color: #f9f9f9;
+}
+
+h1, h2 {
+    margin-bottom: 0.5rem;
+}
+
+.exercise-card {
+    background: white;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.exercise-name {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.muscle-group {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 0.5rem;
+}
+
+.set-list {
+    margin-left: 1rem;
+    list-style-type: disc;
+}
+
+a {
+    display: inline-block;
+    margin-top: 2rem;
+    color: #2196f3;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ---- Nowy styl kart serii (set-card) ---- */
+
+.set-card {
+    background: #f9f9f9;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1rem;
+    font-family: inherit;
+}
+
+.set-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.set-number {
+    background-color: #e0e0e0;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+.set-labels {
+    flex-grow: 1;
+    padding-left: 1rem;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.set-check {
+    font-size: 1.2rem;
+}
+
+.set-check input {
+    display: none;
+}
+
+.set-check label {
+    cursor: pointer;
+    background: #ddd;
+    border-radius: 50%;
+    padding: 4px 10px;
+    transition: background 0.2s;
+    user-select: none;
+}
+
+.set-check input:checked + label {
+    background: #4caf50;
+    color: white;
+}
+
+.set-inputs {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.8rem;
+}
+
+.input-kg,
+.input-reps {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    background: white;
+}
+
+.rest-timer {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: #999;
+    padding-left: 2.2rem;
+}
+
+.start-button {
+    margin-top: 1.5rem;
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
