@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from .models import WorkoutTemplate, Exercise, TemplateExercise, ExerciseSet
+from .models import Exercise, WorkoutTemplate, WorkoutExerciseTemplate, WorkoutExerciseSetTemplate
 import logging
 
 
@@ -19,9 +19,9 @@ def workout_template_list(request):
     for t in my_templates.union(example_templates):
         exercises_list = []
 
-        # Loop through each TemplateExercise related to the template
+        # Loop through each WorkoutExerciseTemplate related to the template
         for te in t.template_exercises.select_related('exercise').prefetch_related('sets'):
-            # Collect set data for each TemplateExercise
+            # Collect set data for each WorkoutExerciseTemplate
             sets_data = [
                 {
                     'kg': s.kg,
@@ -103,14 +103,14 @@ def create_template_api(request):
                 logger.warning(f"Exercise not found: {exercise_id}")
                 continue
 
-            template_exercise = TemplateExercise.objects.create(
+            template_exercise = WorkoutExerciseTemplate.objects.create(
                 template=new_template,
                 exercise=exercise
             )
 
             for set_data in sets:
                 logger.info(f"Creating ExerciseSet: {set_data}")
-                ExerciseSet.objects.create(
+                WorkoutExerciseSetTemplate.objects.create(
                     template_exercise=template_exercise,
                     kg=set_data.get('kg', 0),
                     reps=set_data.get('reps', 0),

@@ -12,15 +12,16 @@ class Workout(models.Model):
 
 
 class WorkoutExercise(models.Model):
-    workout = models.ForeignKey(Workout, on_delete=models.CASCADE, related_name='exercises')
+    workout = models.ForeignKey(Workout, on_delete=models.CASCADE, related_name='workout_exercises')
     exercise = models.ForeignKey(Exercise, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return f"{self.exercise.name if self.exercise else 'Unknown Exercise'} - {self.workout}"
 
 
-class WorkoutSet(models.Model):
-    workout_exercise = models.ForeignKey(WorkoutExercise, on_delete=models.CASCADE, related_name='sets')
+class WorkoutExerciseSet(models.Model):
+    workout_exercise = models.ForeignKey(WorkoutExercise, on_delete=models.CASCADE,
+                                         related_name='workout_exercise_sets')
     kg = models.FloatField(default=0)
     reps = models.PositiveIntegerField(default=0)
     done = models.BooleanField(default=False)

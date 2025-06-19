@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
 from workout_templates.models import Exercise, WorkoutTemplate
-from workout.models import Workout, WorkoutExercise, WorkoutSet
+from workout.models import Workout, WorkoutExercise, WorkoutExerciseSet
 
 import json
 
@@ -48,7 +48,7 @@ def save_workout_api(request):
                 done = s.get('done', False)
 
                 # Create WorkoutSet
-                WorkoutSet.objects.create(
+                WorkoutExerciseSet.objects.create(
                     workout_exercise=workout_ex,
                     kg=kg,
                     reps=reps,
