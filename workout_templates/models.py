@@ -37,16 +37,17 @@ class WorkoutTemplate(models.Model):
         return self.name
 
 
-class TemplateExercise(models.Model):
-    template = models.ForeignKey(WorkoutTemplate, on_delete=models.CASCADE, related_name='template_exercises')
+class WorkoutExerciseTemplate(models.Model):
+    template = models.ForeignKey(WorkoutTemplate, on_delete=models.CASCADE, related_name='workout_exercises_template')
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.template.name} - {self.exercise.name}"
 
 
-class ExerciseSet(models.Model):
-    template_exercise = models.ForeignKey(TemplateExercise, on_delete=models.CASCADE, related_name='sets')
+class WorkoutExerciseSetTemplate(models.Model):
+    template_exercise = models.ForeignKey(WorkoutExerciseTemplate, on_delete=models.CASCADE,
+                                          related_name='workout_exercise_sets_template')
     kg = models.FloatField(default=0)
     reps = models.PositiveIntegerField(default=0)
     rest_timer = models.CharField(max_length=10, default="00:00")  # format mm:ss
