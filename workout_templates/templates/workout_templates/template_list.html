@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>Start Workout</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'workout_templates/css/template.css' %}">
+    <link rel="stylesheet" href="{% static 'workout_templates/css/modal.css' %}">
+</head>
+<body>
+
+    <h1>Start Workout</h1>
+
+    <div class="section-header">
+        <h2>Templates</h2>
+        <div class="button-group">
+            <button onclick="openCreateTemplateModal()">+ Template</button>
+            <button>📁 Folder</button>
+            <button>⋯</button>
+        </div>
+    </div>
+
+    <!-- My Templates -->
+    <div class="section-header">
+        <h3>My Templates ({{ my_templates_count }})</h3>
+        <div class="button-group">
+            <button onclick="toggleSection('my-templates')">⋯</button>
+        </div>
+    </div>
+    <div id="my-templates" class="template-grid">
+        {% for template in my_templates %}
+            <div class="template-item" onclick="openModal({{ template.id }})" style="cursor: pointer;">
+                <strong>{{ template.name }}</strong><br>
+                {{ template.description }}
+            </div>
+        {% empty %}
+            <p>No personal templates.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Example Templates -->
+    <div class="section-header" style="margin-top: 2rem;">
+        <h3>Example Templates ({{ example_templates_count }})</h3>
+        <div class="button-group">
+            <button onclick="toggleSection('example-templates')">⋯</button>
+        </div>
+    </div>
+    <div id="example-templates" class="template-grid">
+        {% for template in example_templates %}
+            <div class="template-item" onclick="openModal({{ template.id }})" style="cursor: pointer;">
+                <strong>{{ template.name }}</strong><br>
+                {{ template.description }}
+            </div>
+        {% empty %}
+            <p>No example templates.</p>
+        {% endfor %}
+    </div>
+
+
+    <!-- Create Template Modal -->
+    <div id="create-template-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button onclick="closeCreateTemplateModal()" class="close-button">×</button>
+            <h2>Create New Template</h2>
+            <input type="text" id="new-template-name" placeholder="Template Name" style="width: 100%; margin-bottom: 1rem;" />
+            <textarea id="new-template-description" placeholder="Description" style="width: 100%; height: 50px; resize: vertical;"></textarea>
+            <div id="selected-exercises" style="margin-top: 1rem; font-size: 0.9rem;"></div>
+            <button onclick="openExercisePicker()" class="start-button" style="background-color:#2196f3; margin-top:1rem;">
+                + Add Exercises
+            </button>
+            <button class="start-button" onclick="createTemplate()">Save</button>
+        </div>
+    </div>
+
+    <!-- Exercise Picker Modal -->
+    <div id="exercise-picker" class="modal-overlay">
+        <div class="modal-content">
+            <button onclick="closeExercisePicker()" class="close-button">×</button>
+            <h2>Select Exercises</h2>
+
+            <!-- Dropdown filter -->
+            <label for="muscle-filter" style="display:block; margin: 0.5rem 0 0.5rem;">Filter by muscle group:</label>
+            <select id="muscle-filter" onchange="renderExerciseList()" style="width: 100%; padding: 0.5rem;">
+                <option value="all">All muscles</option>
+            </select>
+
+            <!-- List of exercises -->
+            <div id="exercise-picker-body" style="max-height: 300px; overflow-y: auto; margin-top: 1rem;">
+                <!-- JS will inject exercises -->
+            </div>
+
+            <button onclick="confirmExerciseSelection()" class="start-button" style="margin-top: 1rem;">Add Selected</button>
+        </div>
+    </div>
+
+
+    <!-- Modal Workout View -->
+    <div id="template-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button onclick="closeModal()" class="close-button">×</button>
+            <h2 id="modal-title">Workout Name</h2>
+            <p id="modal-description">Workout description here.</p>
+
+            <div id="modal-exercises">
+                <!-- Exercise list will be inserted here -->
+            </div>
+
+            <button onclick="startWorkout()" class="start-button">Start Workout</button>
+        </div>
+    </div>
+
+    {{ templates_data_json|json_script:"templates-data" }}
+    {{ exercises_data_json|json_script:"exercises-data" }}
+    <script src="{% static 'workout_templates/js/create_workout.js' %}"></script>
+    <script src="{% static 'workout_templates/js/exercise_picker.js' %}"></script>
+    <script src="{% static 'workout_templates/js/workout_view.js' %}"></script>
+
+</body>
+</html>

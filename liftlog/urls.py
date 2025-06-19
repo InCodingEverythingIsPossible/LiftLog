@@ -19,5 +19,10 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('training.urls')),
+
+    # Routes related to managing workout templates
+    path('templates/', include('workout_templates.urls')),
+
+    # Routes related to performing and saving actual workouts
+    path('workout/', include('workout.urls')),
 ]
