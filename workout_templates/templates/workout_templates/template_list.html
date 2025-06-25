@@ -93,6 +93,38 @@
         </div>
     </div>
 
+    <button onclick="openCreateExerciseModal()" style="margin-top: 1rem;">➕ Add Exercise</button>
+
+    <!-- Exercise Create Modal -->
+    <div id="exercise-create-modal" class="modal-overlay" style="display: none;">
+      <div class="modal-content">
+        <button onclick="closeCreateExerciseModal()" class="close-button">×</button>
+        <h2>Add New Exercise</h2>
+
+        <form id="create-exercise-form">
+          {% csrf_token %}
+
+          <label for="exercise-name">Name:</label>
+          <input id="exercise-name" type="text" name="name" required placeholder="Enter exercise name" />
+
+          <label for="primary-muscle">Primary Muscle:</label>
+          <select id="primary-muscle" name="primary_muscle" required>
+            {% for value, label in muscle_choices %}
+              <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+          </select>
+
+          <label for="equipment">Equipment:</label>
+          <select id="equipment" name="equipment" required>
+            {% for value, label in equipment_choices %}
+              <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+          </select>
+
+          <button type="submit" class="start-button" style="margin-top: 1.5rem;">Save</button>
+        </form>
+      </div>
+    </div>
 
     <!-- Modal Workout View -->
     <div id="template-modal" class="modal-overlay">
@@ -112,6 +144,8 @@
     {{ templates_data_json|json_script:"templates-data" }}
     {{ exercises_data_json|json_script:"exercises-data" }}
     <script src="{% static 'workout_templates/js/create_workout.js' %}"></script>
+    <script>const createExerciseApiUrl = "{% url 'create_exercise_api' %}";</script>
+    <script src="{% static 'workout_templates/js/create_exercise.js' %}"></script>
     <script src="{% static 'workout_templates/js/exercise_picker.js' %}"></script>
     <script src="{% static 'workout_templates/js/workout_view.js' %}"></script>
 
