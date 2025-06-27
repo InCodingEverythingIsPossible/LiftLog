@@ -14,9 +14,10 @@
     <div class="section-header">
         <h2>Templates</h2>
         <div class="button-group">
-            <button onclick="openCreateTemplateModal()">+ Template</button>
+            <button onclick="openCreateTemplateModal()">➕ Template</button>
+            <button onclick="openCreateExerciseModal()">➕ Exercise</button>
             <button>📁 Folder</button>
-            <button>⋯</button>
+            <button>🗑️</button>
         </div>
     </div>
 
@@ -24,7 +25,11 @@
     <div class="section-header">
         <h3>My Templates ({{ my_templates_count }})</h3>
         <div class="button-group">
-            <button onclick="toggleSection('my-templates')">⋯</button>
+            <button onclick="toggleSection('my-templates', this)" class="arrow-btn">
+              <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" fill="currentColor" />
+              </svg>
+            </button>
         </div>
     </div>
     <div id="my-templates" class="template-grid">
@@ -42,7 +47,11 @@
     <div class="section-header" style="margin-top: 2rem;">
         <h3>Example Templates ({{ example_templates_count }})</h3>
         <div class="button-group">
-            <button onclick="toggleSection('example-templates')">⋯</button>
+            <button onclick="toggleSection('example-templates', this)" class="arrow-btn">
+              <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" fill="currentColor" />
+              </svg>
+            </button>
         </div>
     </div>
     <div id="example-templates" class="template-grid">
@@ -92,8 +101,6 @@
             <button onclick="confirmExerciseSelection()" class="start-button" style="margin-top: 1rem;">Add Selected</button>
         </div>
     </div>
-
-    <button onclick="openCreateExerciseModal()" style="margin-top: 1rem;">➕ Add Exercise</button>
 
     <!-- Exercise Create Modal -->
     <div id="exercise-create-modal" class="modal-overlay" style="display: none;">

@@ -1,8 +1,12 @@
 const templatesData = JSON.parse(document.getElementById('templates-data').textContent);
 
-function toggleSection(sectionId) {
+function toggleSection(sectionId, toggleButton) {
     const section = document.getElementById(sectionId);
-    section.style.display = section.style.display === "none" ? "grid" : "none";
+    const arrow = toggleButton.querySelector('.arrow-icon');
+    const isVisible = section.style.display !== 'none';
+
+    section.style.display = isVisible ? 'none' : 'grid';
+    arrow.classList.toggle('expanded', !isVisible);
 }
 
 function openModal(id) {
