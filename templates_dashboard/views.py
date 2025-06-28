@@ -64,7 +64,7 @@ def templates_dashboard(request):
         for ex in exercises
     ]
 
-    return render(request, 'workout_templates/template_list.html', {
+    return render(request, 'templates_dashboard/templates_dashboard.html', {
         'my_templates': my_templates,
         'example_templates': example_templates,
         'my_templates_count': my_templates.count(),

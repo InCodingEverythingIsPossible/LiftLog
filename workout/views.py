@@ -11,7 +11,7 @@ import json
 
 def start_workout(request, template_id):
     template = get_object_or_404(WorkoutTemplate, id=template_id)
-    return render(request, 'workout/workout_session.html', {'template': template})
+    return render(request, 'workout/workout.html', {'template': template})
 
 
 @csrf_exempt
