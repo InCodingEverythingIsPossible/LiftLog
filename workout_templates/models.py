@@ -3,23 +3,39 @@ from django.conf import settings
 
 
 class Exercise(models.Model):
+    EQUIPMENT_CHOICES = [
+        ('Barbell', 'Barbell'),
+        ('Dumbbell', 'Dumbbell'),
+        ('Machine', 'Machine'),
+        ('Cable', 'Cable'),
+        ('Bodyweight', 'Bodyweight'),
+        ('Kettlebell', 'Kettlebell'),
+        ('Other', 'Other'),
+    ]
+
+    MUSCLE_CHOICES = [
+        ('Chest', 'Chest'),
+        ('Back', 'Back'),
+        ('Legs', 'Legs'),
+        ('Arms', 'Arms'),
+        ('Shoulders', 'Shoulders'),
+        ('Core', 'Core'),
+    ]
+
     name = models.CharField(max_length=100)
-    sets = models.IntegerField(default=3)
     primary_muscle = models.CharField(
         max_length=100,
-        choices=[
-            ('Chest', 'Chest'),
-            ('Back', 'Back'),
-            ('Legs', 'Legs'),
-            ('Arms', 'Arms'),
-            ('Shoulders', 'Shoulders'),
-            ('Core', 'Core'),
-        ],
+        choices=MUSCLE_CHOICES,
         default='Chest'
+    )
+    equipment = models.CharField(
+        max_length=50,
+        choices=EQUIPMENT_CHOICES,
+        default='Barbell'
     )
 
     def __str__(self):
-        return self.name
+        return f"{self.name} ({self.primary_muscle}, {self.equipment})"
 
 
 class WorkoutTemplate(models.Model):

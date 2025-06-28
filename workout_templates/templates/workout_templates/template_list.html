@@ -14,9 +14,10 @@
     <div class="section-header">
         <h2>Templates</h2>
         <div class="button-group">
-            <button onclick="openCreateTemplateModal()">+ Template</button>
+            <button onclick="openCreateTemplateModal()">➕ Template</button>
+            <button onclick="openCreateExerciseModal()">➕ Exercise</button>
             <button>📁 Folder</button>
-            <button>⋯</button>
+            <button>🗑️</button>
         </div>
     </div>
 
@@ -24,7 +25,11 @@
     <div class="section-header">
         <h3>My Templates ({{ my_templates_count }})</h3>
         <div class="button-group">
-            <button onclick="toggleSection('my-templates')">⋯</button>
+            <button onclick="toggleSection('my-templates', this)" class="arrow-btn">
+              <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" fill="currentColor" />
+              </svg>
+            </button>
         </div>
     </div>
     <div id="my-templates" class="template-grid">
@@ -42,7 +47,11 @@
     <div class="section-header" style="margin-top: 2rem;">
         <h3>Example Templates ({{ example_templates_count }})</h3>
         <div class="button-group">
-            <button onclick="toggleSection('example-templates')">⋯</button>
+            <button onclick="toggleSection('example-templates', this)" class="arrow-btn">
+              <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" fill="currentColor" />
+              </svg>
+            </button>
         </div>
     </div>
     <div id="example-templates" class="template-grid">
@@ -93,6 +102,36 @@
         </div>
     </div>
 
+    <!-- Exercise Create Modal -->
+    <div id="exercise-create-modal" class="modal-overlay" style="display: none;">
+      <div class="modal-content">
+        <button onclick="closeCreateExerciseModal()" class="close-button">×</button>
+        <h2>Add New Exercise</h2>
+
+        <form id="create-exercise-form">
+          {% csrf_token %}
+
+          <label for="exercise-name">Name:</label>
+          <input id="exercise-name" type="text" name="name" required placeholder="Enter exercise name" />
+
+          <label for="primary-muscle">Primary Muscle:</label>
+          <select id="primary-muscle" name="primary_muscle" required>
+            {% for value, label in muscle_choices %}
+              <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+          </select>
+
+          <label for="equipment">Equipment:</label>
+          <select id="equipment" name="equipment" required>
+            {% for value, label in equipment_choices %}
+              <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+          </select>
+
+          <button type="submit" class="start-button" style="margin-top: 1.5rem;">Save</button>
+        </form>
+      </div>
+    </div>
 
     <!-- Modal Workout View -->
     <div id="template-modal" class="modal-overlay">
@@ -112,6 +151,8 @@
     {{ templates_data_json|json_script:"templates-data" }}
     {{ exercises_data_json|json_script:"exercises-data" }}
     <script src="{% static 'workout_templates/js/create_workout.js' %}"></script>
+    <script>const createExerciseApiUrl = "{% url 'create_exercise_api' %}";</script>
+    <script src="{% static 'workout_templates/js/create_exercise.js' %}"></script>
     <script src="{% static 'workout_templates/js/exercise_picker.js' %}"></script>
     <script src="{% static 'workout_templates/js/workout_view.js' %}"></script>
 

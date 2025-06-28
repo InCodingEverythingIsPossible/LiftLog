@@ -3,6 +3,8 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from django.views.decorators.http import require_POST
+
 from .models import Exercise, WorkoutTemplate, WorkoutExerciseTemplate, WorkoutExerciseSetTemplate
 import logging
 
@@ -20,7 +22,7 @@ def workout_template_list(request):
         exercises_list = []
 
         # Loop through each WorkoutExerciseTemplate related to the template
-        for te in t.template_exercises.select_related('exercise').prefetch_related('sets'):
+        for te in t.workout_exercises_template.select_related('exercise').prefetch_related('sets'):
             # Collect set data for each WorkoutExerciseTemplate
             sets_data = [
                 {
@@ -48,6 +50,10 @@ def workout_template_list(request):
 
     # Pass all available exercises for the exercise picker in the UI
     exercises = Exercise.objects.all()
+
+    muscle_choices = Exercise.MUSCLE_CHOICES
+    equipment_choices = Exercise.EQUIPMENT_CHOICES
+
     exercises_data = [
         {
             'id': ex.id,
@@ -64,6 +70,8 @@ def workout_template_list(request):
         'example_templates_count': example_templates.count(),
         'templates_data_json': templates_data,
         'exercises_data_json': exercises_data,
+        'muscle_choices': muscle_choices,
+        'equipment_choices': equipment_choices,
     })
 
 
@@ -78,7 +86,7 @@ def create_template_api(request):
 
     try:
         data = json.loads(request.body)
-        logger.info(f"Received data: {data}")  # <-- tutaj
+        logger.info(f"Received data: {data}")
 
         name = data.get('name')
         description = data.get('description', '')
@@ -129,3 +137,28 @@ def create_template_api(request):
     except Exception as e:
         logger.error(f"Error in create_template_api: {e}")
         return JsonResponse({'error': str(e)}, status=500)
+
+
+@require_POST
+@login_required
+def create_exercise_api(request):
+    name = request.POST.get('name')
+    primary_muscle = request.POST.get('primary_muscle')
+    equipment = request.POST.get('equipment')
+
+    # Validation
+    if not name or not primary_muscle or not equipment:
+        return JsonResponse({'error': 'Missing required fields.'}, status=400)
+
+    exercise = Exercise.objects.create(
+        name=name,
+        primary_muscle=primary_muscle,
+        equipment=equipment
+    )
+
+    return JsonResponse({
+        'id': exercise.id,
+        'name': exercise.name,
+        'primary_muscle': exercise.primary_muscle,
+        'equipment': exercise.equipment,
+    })

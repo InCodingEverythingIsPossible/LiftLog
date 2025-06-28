@@ -21,3 +21,18 @@
     background-color: #f9f9f9;
     cursor: pointer; /* moved from inline style */
 }
+
+/* Toggle button */
+.arrow-icon {
+    transition: transform 0.3s ease;
+    transform-origin: center;
+}
+.arrow-icon.expanded {
+    transform: rotate(90deg);
+}
+.arrow-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.3rem;
+}

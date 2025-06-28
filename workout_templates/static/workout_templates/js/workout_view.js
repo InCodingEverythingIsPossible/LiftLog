@@ -1,8 +1,17 @@
 const templatesData = JSON.parse(document.getElementById('templates-data').textContent);
 
-function toggleSection(sectionId) {
+function toggleSection(sectionId, toggleButton) {
     const section = document.getElementById(sectionId);
-    section.style.display = section.style.display === "none" ? "grid" : "none";
+    const arrow = toggleButton.querySelector('.arrow-icon');
+
+    // Check actual visibility using computed style
+    const isVisible = getComputedStyle(section).display !== 'none';
+
+    // Toggle section visibility
+    section.style.display = isVisible ? 'none' : 'grid';
+
+    // Toggle arrow rotation class
+    arrow.classList.toggle('expanded', !isVisible);
 }
 
 function openModal(id) {
@@ -45,3 +54,17 @@ function startWorkout() {
     // Redirect to the correct URL pattern in the workout app
     window.location.href = `/workout/start/${templateId}/`;
 }
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".arrow-btn").forEach(button => {
+        const sectionId = button.getAttribute("onclick").match(/'([^']+)'/)[1];
+        const section = document.getElementById(sectionId);
+        const arrow = button.querySelector(".arrow-icon");
+
+        const isVisible = getComputedStyle(section).display !== 'none';
+        if (isVisible) {
+            arrow.classList.add("expanded");
+        }
+    });
+});
