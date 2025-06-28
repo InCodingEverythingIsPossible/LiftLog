@@ -5,8 +5,8 @@
 
 {% block extra_css %}
 <!-- Additional CSS for workout templates and modals -->
-<link rel="stylesheet" href="{% static 'workout_templates/css/template.css' %}">
-<link rel="stylesheet" href="{% static 'workout_templates/css/modal.css' %}">
+<link rel="stylesheet" href="{% static 'templates_dashboard/css/template.css' %}">
+<link rel="stylesheet" href="{% static 'templates_dashboard/css/modal.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -155,9 +155,9 @@
 {{ templates_data_json|json_script:"templates-data" }}
 {{ exercises_data_json|json_script:"exercises-data" }}
 
-<script src="{% static 'workout_templates/js/create_workout.js' %}"></script>
+<script src="{% static 'templates_dashboard/js/create_workout.js' %}"></script>
 <script>const createExerciseApiUrl = "{% url 'create_exercise_api' %}";</script>
-<script src="{% static 'workout_templates/js/create_exercise.js' %}"></script>
-<script src="{% static 'workout_templates/js/exercise_picker.js' %}"></script>
-<script src="{% static 'workout_templates/js/workout_view.js' %}"></script>
+<script src="{% static 'templates_dashboard/js/create_exercise.js' %}"></script>
+<script src="{% static 'templates_dashboard/js/exercise_picker.js' %}"></script>
+<script src="{% static 'templates_dashboard/js/workout_view.js' %}"></script>
 {% endblock %}
