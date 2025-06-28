@@ -12,12 +12,12 @@
 <h2>{{ template.name }}</h2>
 <p>{{ template.description }}</p>
 
-{% for te in template.template_exercises.all %}
+{% for te in template.workout_exercises_template.all %}
     <div class="exercise-card">
         <div class="exercise-name">{{ te.exercise.name }}</div>
         <div class="muscle-group">{{ te.exercise.primary_muscle }}</div>
 
-        {% for set in te.sets.all %}
+        {% for set in te.workout_exercise_sets_template.all %}
             <div class="set-card">
                 <div class="set-header">
                     <div class="set-number">{{ forloop.counter }}</div>
@@ -41,15 +41,19 @@
                     Rest: {{ set.rest_timer }}
                 </div>
             </div>
+        {% empty %}
+            <p>No sets for this exercise.</p>
         {% endfor %}
     </div>
+{% empty %}
+    <p>No exercises found in this template.</p>
 {% endfor %}
 
 <div style="text-align: center; margin-top: 2rem;">
     <button id="finish-workout-btn" class="start-button">Finish</button>
 </div>
 
-<a href="{% url 'workout_template_list' %}">← Back to Templates</a>
+<a href="{% url 'templates_dashboard' %}">← Back to Templates</a>
 {% endblock %}
 
 {% block extra_js %}

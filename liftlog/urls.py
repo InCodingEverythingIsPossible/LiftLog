@@ -21,7 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Routes related to managing workout templates
-    path('templates/', include('workout_templates.urls')),
+    path('templates/', include('templates_dashboard.urls')),
 
     # Routes related to performing and saving actual workouts
     path('workout/', include('workout.urls')),

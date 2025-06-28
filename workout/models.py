@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-from workout_templates.models import Exercise
+from templates_dashboard.models import Exercise
 
 
 class Workout(models.Model):
