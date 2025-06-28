@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Liftlog{% endblock %}</title>
+    <!-- Base CSS applied to all pages -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+    {% block extra_css %}
+    <!-- Additional CSS for specific pages can be added here -->
+    {% endblock %}
+</head>
+<body>
+
+    <!-- You can add a global header or sidebar here -->
+
+    <main>
+        {% block content %}
+        <!-- Main page content goes here -->
+        {% endblock %}
+    </main>
+
+    {% block extra_js %}
+    <!-- Additional JavaScript for specific pages can be added here -->
+    {% endblock %}
+
+</body>
+</html>
