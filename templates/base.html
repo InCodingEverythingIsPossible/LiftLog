@@ -8,6 +8,9 @@
     <!-- Base CSS applied to all pages -->
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+
     <!-- Boxicons CSS -->
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
 
@@ -31,7 +34,7 @@
       <aside class="sidebar collapsed">
         <!-- Sidebar header -->
         <div class="sidebar-header">
-          <img src="logo.png" alt="CodingNepal" class="header-logo" />
+          <img src="{% static 'images/logo.png' %}" alt="Logo" class="header-logo" />
           <button class="sidebar-toggle">
             <span class="material-symbols-rounded">chevron_left</span>
           </button>
