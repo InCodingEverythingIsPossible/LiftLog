@@ -1,4 +1,12 @@
-/* Sekcje nagłówków */
+/* === Centered Content Wrapper === */
+.centered-page-content {
+  max-width: 960px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+
+/* === Section Headers === */
 .section-header {
   display: flex;
   justify-content: space-between;
@@ -16,14 +24,16 @@
   font-weight: 600;
 }
 
-/* Siatka z template'ami */
+
+/* === Template Grid Layout === */
 .template-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 1rem;
 }
 
-/* Karty template */
+
+/* === Template Item Cards === */
 .template-item {
   padding: 1rem;
   border-radius: 8px;
@@ -33,11 +43,13 @@
   box-shadow: 0 1px 2px var(--color-shadow);
   transition: background-color 0.3s ease;
 }
+
 .template-item:hover {
   background-color: var(--color-hover-secondary);
 }
 
-/* Przyciski */
+
+/* === General Button Styling === */
 .button-group button,
 .start-button {
   padding: 10px 16px;
@@ -51,12 +63,14 @@
   transition: background-color 0.3s ease;
   margin-left: 0.5rem;
 }
+
 .button-group button:hover,
 .start-button:hover {
   background-color: var(--color-button-hover);
 }
 
-/* Strzałka */
+
+/* === Arrow Buttons === */
 .arrow-btn {
   background: var(--color-bg-secondary);
   border: 1px solid var(--color-border-hr);
@@ -65,50 +79,89 @@
   padding: 0.3rem;
   transition: background-color 0.3s ease;
 }
+
 .arrow-btn:hover {
   background-color: var(--color-hover-secondary);
 }
+
 .arrow-icon {
   transition: transform 0.3s ease;
   transform-origin: center;
 }
+
 .arrow-icon.expanded {
   transform: rotate(90deg);
 }
 
-/* ========================================= */
-/*              KLASY UŻYTKOWE              */
-/* ========================================= */
 
-.mt-1 { margin-top: 1rem; }
-.mt-1-5 { margin-top: 1.5rem; }
-.mt-2 { margin-top: 2rem; }
-.mb-1 { margin-bottom: 1rem; }
+/* === Icon Buttons with Material Symbols === */
+.button-group button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  padding: 10px 16px;
+  border: 1px solid var(--color-border-hr);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
 
+.button-group button:hover {
+  background-color: var(--color-hover-secondary);
+}
+
+.button-group .material-symbols-rounded {
+  font-size: 1.2rem;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+
+/* === Utility Spacing Classes === */
+.mt-1    { margin-top: 1rem; }
+.mt-1-5  { margin-top: 1.5rem; }
+.mt-2    { margin-top: 2rem; }
+.mb-1    { margin-bottom: 1rem; }
+
+
+/* === Text & Display Utilities === */
 .text-sm { font-size: 0.9rem; }
-.hidden { display: none; }
+.hidden  { display: none; }
 
+
+/* === Input & Form Utilities === */
 .input-full { width: 100%; }
-.p-1 { padding: 0.5rem; }
+.p-1        { padding: 0.5rem; }
 
 .textarea-sm {
   height: 50px;
   resize: vertical;
 }
 
+
+/* === Scrollable Container === */
 .scrollbox {
   max-height: 300px;
   overflow-y: auto;
 }
 
+
+/* === Colored Buttons === */
 .btn-blue {
   background-color: #2196f3;
   color: white;
 }
+
 .btn-blue:hover {
   background-color: #1976d2;
 }
 
+
+/* === Clickable Element Helper === */
 .clickable {
   cursor: pointer;
 }
