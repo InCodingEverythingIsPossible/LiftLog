@@ -1,148 +1,148 @@
-/* Modal Styles */
+/* === Modal Overlay Background === */
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.6);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    padding: 1rem; /* for comfort on small screens */
-    box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
+/* === Modal Container === */
 .modal-content {
-    background: #fff;
-    padding: 2rem 2.5rem;
-    border-radius: 12px;
-    width: 100%;
-    max-width: 480px;
-    position: relative;
-    max-height: 80vh;
-    overflow-y: auto;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--color-bg-sidebar);
+  color: var(--color-text-primary);
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px var(--color-shadow);
+  position: relative;
+  transition: background-color 0.3s ease;
 }
 
-/* Close button */
+/* === Modal Close Button === */
 .close-button {
-    position: absolute;
-    top: 1rem;
-    right: 1.25rem;
-    border: none;
-    background: transparent;
-    font-size: 1.7rem;
-    line-height: 1;
-    cursor: pointer;
-    color: #666;
-    transition: color 0.2s ease;
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  border: none;
+  background: transparent;
+  font-size: 1.7rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--color-text-placeholder);
+  transition: color 0.3s ease;
 }
 .close-button:hover {
-    color: #222;
+  color: var(--color-text-primary);
 }
 
-/* Submit button */
-.start-button {
-    margin-top: 1.8rem;
-    width: 100%;
-    padding: 0.85rem;
-    font-size: 1.1rem;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
-}
-.start-button:hover {
-    background-color: #1e7e34;
-}
-
-/* Form layout inside modal */
+/* === Form Layout Inside Modal === */
 .modal-content form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 
-/* Labels */
+/* === Labels === */
 .modal-content label {
-    font-weight: 600;
-    margin-bottom: 0.3rem;
-    color: #333;
-    user-select: none;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: var(--color-text-primary);
+  user-select: none;
 }
 
-/* Inputs and selects */
+/* === Inputs and Selects === */
 .modal-content input[type="text"],
 .modal-content select {
-    padding: 0.5rem 0.75rem;
-    font-size: 1rem;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    width: 100%;
-    box-sizing: border-box;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--color-border-hr);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  width: 100%;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .modal-content input[type="text"]:focus,
 .modal-content select:focus {
-    border-color: #28a745;
-    outline: none;
-    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+  border-color: var(--color-hover-primary);
+  outline: none;
+  box-shadow: 0 0 5px var(--color-shadow);
 }
 
-/* Modal exercise item */
+/* === Modal Primary Button === */
+.start-button {
+  margin-top: 1.5rem;
+  width: 100%;
+  padding: 0.85rem;
+  font-size: 1.05rem;
+  background-color: var(--color-button, #695CFE);
+  color: var(--color-button-text, #fff);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+.start-button:hover {
+  background-color: var(--color-button-hover, #5142d6);
+}
+
+/* === Modal Exercise Info Display === */
 .exercise-item {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
-
 .exercise-item strong {
-    font-size: 1rem;
-    display: block;
-    margin-bottom: 0.25rem;
+  font-size: 1rem;
+  display: block;
+  margin-bottom: 0.25rem;
 }
-
 .exercise-item small {
-    color: #666;
-    font-size: 0.85rem;
+  color: var(--color-text-placeholder);
+  font-size: 0.85rem;
 }
 
-/* Modal exercise set */
+/* === Set Input Fields === */
 .set-row input {
-    padding: 0.4rem 0.5rem;
-    font-size: 0.95rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 60px;
-    box-sizing: border-box;
+  padding: 0.4rem 0.5rem;
+  font-size: 0.95rem;
+  border: 1px solid var(--color-border-hr);
+  border-radius: 5px;
+  width: 60px;
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
 }
-
 .set-row span {
-    font-size: 0.9rem;
-    color: #444;
+  font-size: 0.9rem;
+  color: var(--color-text-primary);
 }
 
-/* Modal exercise picker */
+/* === Exercise Picker Options === */
 .exercise-option {
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid #eee;
-    cursor: pointer;
-    user-select: none;
-    transition: background-color 0.2s ease;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--color-border-hr);
+  cursor: pointer;
+  user-select: none;
+  background-color: var(--color-bg-primary);
+  transition: background-color 0.2s ease;
 }
-
 .exercise-option:hover {
-    background-color: #f9f9f9;
+  background-color: var(--color-hover-secondary);
 }
-
 .exercise-option.selected {
-    background-color: #d4edda;
-    border-left: 4px solid #28a745;
-    font-weight: 600;
-    color: #155724;
+  background-color: #d4edda;
+  border-left: 4px solid #28a745;
+  font-weight: 600;
+  color: #155724;
 }
