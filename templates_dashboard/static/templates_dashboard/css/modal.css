@@ -26,7 +26,10 @@
   overflow-y: auto;
   box-shadow: 0 10px 30px var(--color-shadow);
   position: relative;
-  transition: background-color 0.3s ease;
+}
+
+.modal-content h2 {
+  margin-bottom: 1.5rem;
 }
 
 /* === Modal Close Button === */
@@ -46,39 +49,54 @@
   color: var(--color-text-primary);
 }
 
-/* === Form Layout Inside Modal === */
+/* === Form Layout === */
 .modal-content form {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.75rem;
 }
 
-/* === Labels === */
-.modal-content label {
-  font-weight: 600;
-  margin-bottom: 0.3rem;
-  color: var(--color-text-primary);
-  user-select: none;
+/* === Floating Label Group === */
+.floating-group {
+  position: relative;
+  width: 100%;
 }
 
-/* === Inputs and Selects === */
-.modal-content input[type="text"],
-.modal-content select {
-  padding: 0.5rem 0.75rem;
+.floating-group input,
+.floating-group select {
+  width: 100%;
   font-size: 1rem;
-  border-radius: 6px;
+  padding: 1rem 0.75rem 0.5rem;
   border: 1px solid var(--color-border-hr);
+  border-radius: 6px;
   background-color: var(--color-bg-primary);
   color: var(--color-text-primary);
-  width: 100%;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-.modal-content input[type="text"]:focus,
-.modal-content select:focus {
-  border-color: var(--color-hover-primary);
-  outline: none;
-  box-shadow: 0 0 5px var(--color-shadow);
+.floating-group select:invalid {
+  color: var(--color-text-placeholder);
+}
+
+.floating-group label {
+  position: absolute;
+  top: 1rem;
+  left: 0.75rem;
+  color: var(--color-text-placeholder);
+  background-color: var(--color-bg-primary);
+  padding: 0 0.25rem;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.floating-group input:focus + label,
+.floating-group input:not(:placeholder-shown) + label,
+.floating-group select:focus + label,
+.floating-group select:valid + label {
+  top: -0.6rem;
+  left: 0.6rem;
+  font-size: 0.8rem;
+  color: var(--color-hover-primary);
 }
 
 /* === Modal Primary Button === */
@@ -99,7 +117,7 @@
   background-color: var(--color-button-hover, #5142d6);
 }
 
-/* === Modal Exercise Info Display === */
+/* === Exercise Info Display === */
 .exercise-item {
   margin-bottom: 1rem;
 }

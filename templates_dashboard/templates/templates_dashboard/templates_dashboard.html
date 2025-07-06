@@ -115,22 +115,30 @@
       <form id="create-exercise-form">
         {% csrf_token %}
 
-        <label for="exercise-name">Name:</label>
-        <input id="exercise-name" type="text" name="name" required placeholder="Enter exercise name" />
+        <div class="floating-group">
+          <input id="exercise-name" type="text" name="name" required placeholder=" " />
+          <label for="exercise-name">Name</label>
+        </div>
 
-        <label for="primary-muscle">Primary Muscle:</label>
-        <select id="primary-muscle" name="primary_muscle" required>
-          {% for value, label in muscle_choices %}
-            <option value="{{ value }}">{{ label }}</option>
-          {% endfor %}
-        </select>
+        <div class="floating-group">
+          <select id="primary-muscle" name="primary_muscle" required>
+            <option value="" disabled selected hidden></option>
+            {% for value, label in muscle_choices %}
+              <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+          </select>
+          <label for="primary-muscle">Primary Muscle</label>
+        </div>
 
-        <label for="equipment">Equipment:</label>
-        <select id="equipment" name="equipment" required>
-          {% for value, label in equipment_choices %}
-            <option value="{{ value }}">{{ label }}</option>
-          {% endfor %}
-        </select>
+        <div class="floating-group">
+          <select id="equipment" name="equipment" required>
+            <option value="" disabled selected hidden></option>
+            {% for value, label in equipment_choices %}
+              <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+          </select>
+          <label for="equipment">Equipment</label>
+        </div>
 
         <button type="submit" class="start-button mt-1-5">Save</button>
       </form>
@@ -149,6 +157,7 @@
       <button onclick="startWorkout()" class="start-button">Start Workout</button>
     </div>
   </div>
+
 </div>
 {% endblock %}
 
