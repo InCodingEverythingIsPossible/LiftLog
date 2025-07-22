@@ -1,0 +1,166 @@
+/* === Modal Overlay Background === */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+/* === Modal Container === */
+.modal-content {
+  background: var(--color-bg-sidebar);
+  color: var(--color-text-primary);
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px var(--color-shadow);
+  position: relative;
+}
+
+.modal-content h2 {
+  margin-bottom: 1.5rem;
+}
+
+/* === Modal Close Button === */
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  border: none;
+  background: transparent;
+  font-size: 1.7rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--color-text-placeholder);
+  transition: color 0.3s ease;
+}
+.close-button:hover {
+  color: var(--color-text-primary);
+}
+
+/* === Form Layout === */
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+/* === Floating Label Group === */
+.floating-group {
+  position: relative;
+  width: 100%;
+}
+
+.floating-group input,
+.floating-group select {
+  width: 100%;
+  font-size: 1rem;
+  padding: 1rem 0.75rem 0.5rem;
+  border: 1px solid var(--color-border-hr);
+  border-radius: 6px;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  transition: all 0.3s ease;
+}
+
+.floating-group select:invalid {
+  color: var(--color-text-placeholder);
+}
+
+.floating-group label {
+  position: absolute;
+  top: 1rem;
+  left: 0.75rem;
+  color: var(--color-text-placeholder);
+  background-color: var(--color-bg-primary);
+  padding: 0 0.25rem;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.floating-group input:focus + label,
+.floating-group input:not(:placeholder-shown) + label,
+.floating-group select:focus + label,
+.floating-group select:valid + label {
+  top: -0.6rem;
+  left: 0.6rem;
+  font-size: 0.8rem;
+  color: var(--color-hover-primary);
+}
+
+/* === Modal Primary Button === */
+.start-button {
+  margin-top: 1.5rem;
+  width: 100%;
+  padding: 0.85rem;
+  font-size: 1.05rem;
+  background-color: var(--color-button, #695CFE);
+  color: var(--color-button-text, #fff);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+.start-button:hover {
+  background-color: var(--color-button-hover, #5142d6);
+}
+
+/* === Exercise Info Display === */
+.exercise-item {
+  margin-bottom: 1rem;
+}
+.exercise-item strong {
+  font-size: 1rem;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+.exercise-item small {
+  color: var(--color-text-placeholder);
+  font-size: 0.85rem;
+}
+
+/* === Set Input Fields === */
+.set-row input {
+  padding: 0.4rem 0.5rem;
+  font-size: 0.95rem;
+  border: 1px solid var(--color-border-hr);
+  border-radius: 5px;
+  width: 60px;
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
+.set-row span {
+  font-size: 0.9rem;
+  color: var(--color-text-primary);
+}
+
+/* === Exercise Picker Options === */
+.exercise-option {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--color-border-hr);
+  cursor: pointer;
+  user-select: none;
+  background-color: var(--color-bg-primary);
+  transition: background-color 0.2s ease;
+}
+.exercise-option:hover {
+  background-color: var(--color-hover-secondary);
+}
+.exercise-option.selected {
+  background-color: #d4edda;
+  border-left: 4px solid #28a745;
+  font-weight: 600;
+  color: #155724;
+}

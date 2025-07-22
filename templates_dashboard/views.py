@@ -9,7 +9,7 @@ from .models import Exercise, WorkoutTemplate, WorkoutExerciseTemplate, WorkoutE
 import logging
 
 
-def workout_template_list(request):
+def templates_dashboard(request):
     user = request.user
 
     my_templates = WorkoutTemplate.objects.filter(user=user)
@@ -22,7 +22,8 @@ def workout_template_list(request):
         exercises_list = []
 
         # Loop through each WorkoutExerciseTemplate related to the template
-        for te in t.workout_exercises_template.select_related('exercise').prefetch_related('sets'):
+        for te in t.workout_exercises_template.select_related('exercise') \
+                .prefetch_related('workout_exercise_sets_template'):
             # Collect set data for each WorkoutExerciseTemplate
             sets_data = [
                 {
@@ -30,7 +31,7 @@ def workout_template_list(request):
                     'reps': s.reps,
                     'rest': s.rest_timer
                 }
-                for s in te.sets.all()
+                for s in te.workout_exercise_sets_template.all()
             ]
 
             # Prepare exercise entry with sets
@@ -63,7 +64,7 @@ def workout_template_list(request):
         for ex in exercises
     ]
 
-    return render(request, 'workout_templates/template_list.html', {
+    return render(request, 'templates_dashboard/templates_dashboard.html', {
         'my_templates': my_templates,
         'example_templates': example_templates,
         'my_templates_count': my_templates.count(),

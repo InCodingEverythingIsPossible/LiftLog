@@ -46,7 +46,7 @@ class WorkoutTemplate(models.Model):
         on_delete=models.CASCADE,
         null=True,
         blank=True,
-        related_name='workout_templates'
+        related_name='templates_dashboard'
     )
 
     def __str__(self):

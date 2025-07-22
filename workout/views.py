@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
-from workout_templates.models import Exercise, WorkoutTemplate
+from templates_dashboard.models import Exercise, WorkoutTemplate
 from workout.models import Workout, WorkoutExercise, WorkoutExerciseSet
 
 import json
@@ -11,7 +11,7 @@ import json
 
 def start_workout(request, template_id):
     template = get_object_or_404(WorkoutTemplate, id=template_id)
-    return render(request, 'workout/workout_session.html', {'template': template})
+    return render(request, 'workout/workout.html', {'template': template})
 
 
 @csrf_exempt
